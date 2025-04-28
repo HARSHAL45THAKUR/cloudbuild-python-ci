@@ -5,11 +5,11 @@ stages:
   - deploy
 
 variables:
-  PROJECT_ID: your-gcp-project-id
+  PROJECT_ID: tt-sandbox-001
   IMAGE_NAME: python-gitlab-cloudbuild
 
 before_script:
-  - echo "$GCLOUD_SERVICE_KEY" | base64 --decode > gcloud-key.json
+  - echo "$GCLOUD_SERVICE_KEY" > gcloud-key.json
   - gcloud auth activate-service-account --key-file=gcloud-key.json
   - gcloud config set project $PROJECT_ID
 
