@@ -21,7 +21,8 @@ build:
 deploy:
   stage: deploy
   script:
-    - gcloud run deploy python-app-gitlab \
+    - |
+      gcloud run deploy python-app-gitlab \
         --image gcr.io/$PROJECT_ID/$IMAGE_NAME:$CI_COMMIT_SHORT_SHA \
         --platform managed \
         --region us-central1 \
