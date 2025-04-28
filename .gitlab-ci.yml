@@ -16,7 +16,7 @@ before_script:
 build:
   stage: build
   script:
-    - gcloud builds submit --tag gcr.io/$PROJECT_ID/$IMAGE_NAME:$CI_COMMIT_SHORT_SHA
+    - gcloud builds submit --tag gcr.io/$PROJECT_ID/$IMAGE_NAME:$CI_COMMIT_SHORT_SHA .
 
 deploy:
   stage: deploy
