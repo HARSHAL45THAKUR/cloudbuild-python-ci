@@ -1,4 +1,4 @@
-image: gcr.io/cloud-builders/gcloud
+image: google/cloud-sdk:latest
 
 stages:
   - build
