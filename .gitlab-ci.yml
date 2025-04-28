@@ -1,0 +1,28 @@
+image: gcr.io/cloud-builders/gcloud
+
+stages:
+  - build
+  - deploy
+
+variables:
+  PROJECT_ID: your-gcp-project-id
+  IMAGE_NAME: python-gitlab-cloudbuild
+
+before_script:
+  - echo "$GCLOUD_SERVICE_KEY" | base64 --decode > gcloud-key.json
+  - gcloud auth activate-service-account --key-file=gcloud-key.json
+  - gcloud config set project $PROJECT_ID
+
+build:
+  stage: build
+  script:
+    - gcloud builds submit --tag gcr.io/$PROJECT_ID/$IMAGE_NAME:$CI_COMMIT_SHORT_SHA
+
+deploy:
+  stage: deploy
+  script:
+    - gcloud run deploy python-app-gitlab \
+        --image gcr.io/$PROJECT_ID/$IMAGE_NAME:$CI_COMMIT_SHORT_SHA \
+        --platform managed \
+        --region us-central1 \
+        --allow-unauthenticated
