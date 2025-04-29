@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+venv/
+encoded-key.txt
+.DS_Store
