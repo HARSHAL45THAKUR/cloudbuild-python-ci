@@ -1,10 +1,10 @@
-#  CloudBuild Python CI - Flask App Deployment to Google Cloud Run
+# ☁️ CloudBuild Python CI – Flask App Deployment to Google Cloud Run
 
-This project is a minimal Flask application that demonstrates automated CI/CD using **GitLab CI**, **Docker**, **Google Cloud Build**, and **Cloud Run**.
+A minimal Flask application showcasing **CI/CD automation** with **GitLab CI**, **Docker**, **Google Cloud Build**, and **Cloud Run**.
 
 ---
 
-##  Project Structure
+## 📁 Project Structure
 
 ```bash
 .
@@ -17,24 +17,24 @@ This project is a minimal Flask application that demonstrates automated CI/CD us
 
 ---
 
-##  Technologies Used
+## 🚀 Technologies Used
 
-- **Flask** – Python web framework
-- **Docker** – Containerization
-- **Google Cloud Build** – Build Docker image
-- **Google Cloud Run** – Host the app
-- **GitLab CI/CD** – Automate build & deployment
+- 🐍 **Flask** – Python micro web framework  
+- 🐳 **Docker** – Containerization  
+- ☁️ **Google Cloud Build** – Builds Docker image  
+- 🌐 **Google Cloud Run** – Deploys app  
+- 🔁 **GitLab CI/CD** – Automation for build & deploy  
 
 ---
 
-##  Run Locally
+## 🧪 Running Locally
 
-To test the Flask app locally:
+To run the Flask app on your machine:
 
 ```bash
-# (Optional) Create virtual environment
+# (Optional) Create a virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate        # Windows: venv\Scripts\activate
 
 # Install Flask
 pip install flask
@@ -43,11 +43,11 @@ pip install flask
 python app.py
 ```
 
-Then go to `http://localhost:8080`
+Visit: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-##  Build Docker Image Locally (Optional)
+## 🐳 Build Docker Image Locally (Optional)
 
 ```bash
 docker build -t flask-app .
@@ -56,22 +56,24 @@ docker run -p 8080:8080 flask-app
 
 ---
 
-##  GitLab CI/CD Pipeline
+## ⚙️ GitLab CI/CD Pipeline
 
-The `.gitlab-ci.yml` handles two stages:
+The pipeline is defined in `.gitlab-ci.yml` with two key stages:
 
-###  Build Stage
+### 🔨 Build Stage
 
-- Authenticates using a GCP service account (`$GCLOUD_SERVICE_KEY`)
-- Submits the app to **Google Cloud Build**
-- Builds a Docker image and pushes it to **Google Container Registry (GCR)**
+- Authenticates using the base64-encoded GCP service account (`$GCLOUD_SERVICE_KEY`)
+- Submits the code to **Google Cloud Build**
+- Builds and pushes the Docker image to **Google Container Registry (GCR)**
 
-###  Deploy Stage
+### 🚀 Deploy Stage
 
-- Deploys the built image to **Google Cloud Run**
-- Makes the app publicly accessible
+- Deploys the container to **Google Cloud Run**
+- Exposes the app to the public with HTTPS
 
-###  .gitlab-ci.yml Overview
+---
+
+## 🧾 .gitlab-ci.yml Overview
 
 ```yaml
 image: google/cloud-sdk:latest
@@ -106,16 +108,47 @@ deploy:
 
 ---
 
-##  Security Notes
+## 🔐 How to Store the GCP Service Account Key in GitLab CI/CD
 
-- `encoded-key.txt` contains your **base64-encoded service account** credentials.
-- It's excluded from version control using `.gitignore`.
-- Rotate credentials regularly for security.
+To allow GitLab to authenticate with Google Cloud during CI/CD, store the base64-encoded service account key securely as a variable:
+
+### ✅ Steps:
+
+1. **Encode your JSON key file:**
+
+    ```bash
+    base64 your-key-file.json > encoded-key.txt
+    ```
+
+2. **Copy the contents** of `encoded-key.txt`
+
+3. Go to your GitLab Project:  
+   → **Settings** → **CI/CD** → **Variables**
+
+4. Click **"Add variable"** and configure:
+
+   - **Key**: `GCLOUD_SERVICE_KEY`  
+   - **Value**: *(Paste the base64 string you copied)*  
+   - **Type**: Variable  
+   - **Mask**: ✅ *(optional: hides value in logs)*  
+   - **Protect**: ❌ *(leave unchecked unless using protected branches)*
+
+That's it! Now your pipeline can securely authenticate and deploy without exposing credentials in the repo.
 
 ---
 
-##  Deployment Output
+## 🛡️ Security Notes
 
-Once deployed, Cloud Run gives you a **public HTTPS URL** where the Flask app is live and accessible without authentication.
+- `encoded-key.txt` contains sensitive credentials and **is excluded** via `.gitignore`
+- Always **rotate service keys** periodically and limit scope
+- Never commit raw credentials — use encrypted or environment-based secrets
 
 ---
+
+## 🌍 Deployment Output
+
+Once deployed, Google Cloud Run provides a **public HTTPS URL** where your Flask app is live and accessible by anyone.
+
+---
+
+Made with ❤️ for DevOps and Cloud automation.
