@@ -2,6 +2,9 @@
 
 A minimal Flask application showcasing **CI/CD automation** with **GitLab CI**, **Docker**, **Google Cloud Build**, and **Cloud Run**.
 
+## 📖 **Read the full step-by-step tutorial on Medium:**  
+👉 [Deploying a Flask App to Google Cloud Run using GitLab CI/CD and Cloud Build](https://medium.com/@cloudwithharshal/deploying-a-flask-app-to-google-cloud-run-using-gitlab-ci-cd-and-cloud-build-b3c274ea58a2)
+
 ---
 
 ## 📁 Project Structure
